@@ -1,0 +1,12 @@
+[
+	{
+		"title": "telefono",
+		"description": "descripcion",
+		"code": "abc123",
+		"price": 200,
+		"status": true,
+		"stock": 250,
+		"category": "tech",
+		"id": 1
+	}
+]

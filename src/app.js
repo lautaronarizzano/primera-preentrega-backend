@@ -1,43 +1,45 @@
 import express from 'express'
-import ProductManager from "../manager/ProductManager.js"
-import path from 'path'
-import {fileURLToPath} from 'url'
-
+import  { __dirname }  from './utils.js'
+import productsRouter from './routes/products.router.js'
+import cartsRouter from './routes/carts.router.js'
 
 
 const app = express()
 
-const filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(filename)
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
-console.log(dirname)
+app.use('/static', express.static(`${__dirname}/public`));
 
-const manejadorEventos = new ProductManager(path.join(dirname, 'Productos.json'))
+app.use('/api/products', productsRouter);
+app.use('/api/carts', cartsRouter);
 
-const products = await manejadorEventos.getProducts()
 
-app.get('/products', async (req, res) => {
-    const limit = Number(req.query.limit)
 
-    if (!limit) return res.send({
-        products
-    })
+// const products = await manejadorEventos.getProducts()
 
-    const filterLimit = products.filter(p => p.id <= limit)
+// app.get('/products', async (req, res) => {
+//     const limit = Number(req.query.limit)
 
-    res.send({filterLimit})
-})
+//     if (!limit) return res.send({
+//         products
+//     })
 
-app.get('/products/:pid', async (req, res) => {
-    const idProduct = Number(req.params.pid)
+//     const filterLimit = products.filter(p => p.id <= limit)
 
-    const product = products.find(p => p.id === idProduct)
-    if (!product) return res.send({
-        error: 'Usuario no encontrado'
-    })
+//     res.send({filterLimit})
+// })
 
-    res.send(product)
-})
+// app.get('/products/:pid', async (req, res) => {
+//     const idProduct = Number(req.params.pid)
+
+//     const product = products.find(p => p.id === idProduct)
+//     if (!product) return res.send({
+//         error: 'Usuario no encontrado'
+//     })
+
+//     res.send(product)
+// })
 
 app.listen(8080, () => console.log('Listening on port 8080'))
 
@@ -62,4 +64,4 @@ const inicializador = async () => {
 
 
 }
-inicializador()
+// inicializador()
