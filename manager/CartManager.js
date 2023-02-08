@@ -11,7 +11,6 @@ export default class CartManager {
 
             if (fs.existsSync(this.path)) {
                 const data = await fs.promises.readFile(this.path, 'utf-8')
-                console.log(data)
                 const carts = JSON.parse(data)
                 return carts
             } else {

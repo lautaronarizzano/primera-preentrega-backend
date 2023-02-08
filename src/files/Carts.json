@@ -1,26 +1,27 @@
 [
 	{
 		"products": [
-			"asdssdsa",
-			"sadasab",
-			"cddasdasdasd"
+			"agua",
+			"sal",
+			"mayonesa",
+			{
+				"product": 7,
+				"quantity": 2
+			},
+			{
+				"product": 2,
+				"quantity": 1
+			}
 		],
 		"id": 1
 	},
 	{
 		"products": [
-			"asdssdsa",
-			"sadasab",
-			"cddasdasdasd"
+			"maiz",
+			"caldito",
+			"fideos",
+			"ARROZ"
 		],
 		"id": 2
-	},
-	{
-		"products": [
-			"asdssdsa",
-			"sadasab",
-			"cddasdasdasd"
-		],
-		"id": 3
 	}
 ]

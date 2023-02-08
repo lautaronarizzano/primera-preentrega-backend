@@ -1,15 +1,21 @@
-import { Router } from 'express'
-import { CartsManager } from '../utils.js'
+import {
+    Router
+} from 'express'
+import {
+    CartsManager
+} from '../utils.js'
 import fs from 'fs'
 
 
 const router = Router()
 
+//traigo productos
 const carts = await CartsManager.getCarts()
 
+//metodo para agregar productos
 router.post('/', async (req, res) => {
     try {
-        
+
         const cart = req.body
 
         //crear id autoincrementable
@@ -18,23 +24,31 @@ router.post('/', async (req, res) => {
         } else {
             cart.id = carts[carts.length - 1].id + 1
         }
-    
-        if(!cart.products) return res.status(400).send({status: 'error', message: "products doesn't exist"})
+
+        //verificacion de que se hayan puest los campos
+        if (!cart.products) return res.status(400).send({
+            status: 'error',
+            message: "products doesn't exist"
+        })
 
         carts.push(cart)
         await fs.promises.writeFile('./src/files/Carts.json', JSON.stringify(carts, null, '\t'))
-        res.status(200).send({status: 'success'})
-    
+        res.status(201).send({
+            status: 'success'
+        })
+
 
     } catch (error) {
         console.error(error)
     }
 
 })
+//traigo todos los productos, no lo pide el desafio pero era una mejor organizacion
 router.get('/', (req, res) => {
     res.send(carts)
 })
 
+//traigo el cart que indique el usuario
 router.get('/:cid', (req, res) => {
 
     const cartId = Number(req.params.cid)
@@ -42,34 +56,64 @@ router.get('/:cid', (req, res) => {
     const cart = carts.find(c => c.id === cartId)
 
 
-    if (!cart) return res.status(404).send({error: 'error', message: "Cart not found"})
+    if (!cart) return res.status(404).send({
+        error: 'error',
+        message: "Cart not found"
+    })
 
-    res.send(cart)
+    res.status(200).send(cart)
 
 })
 
-router.post('/:cid/product/:pid', (req, res) => {
 
-    const cartId = Number(req.params.cid)
-    const productId = Number(req.params.pid)
 
-    const cart = carts.find(c => c.id === cartId)
+//agrego un producto al cart que elija el usuario
+router.post('/:cid/product/:pid', async (req, res) => {
 
-    if(cartId > carts.length || !cart) return res.status(404).send({status: 'error', message: "cart id doesn't exist"})
-    
+    try {
 
-    const newProduct = {
-        product: productId,
+        const cartId = Number(req.params.cid)
+        const productId = Number(req.params.pid)
+
+        const cart = carts.find(c => c.id === cartId)
+
+        if (cartId > carts.length || !cart) return res.status(400).send({
+            status: 'error',
+            message: "cart id doesn't exist"
+        })
+
+        function addPost(post) {
+
+            const existingPost = cart.products.find(p => p.product === post);
+
+            if (existingPost) {
+
+                // Actualizar post existente
+
+                existingPost.product = productId;
+
+                existingPost.quantity += 1;
+            } else {
+
+                // Agregar nuevo post
+                cart.products.push({
+                    product: post,
+                    quantity: 1
+                });
+            }
+        }
+        addPost(productId)
+        await fs.promises.writeFile('./src/files/Carts.json', JSON.stringify(carts, null, '\t'))
+        res.status(201).send({
+            status: 'success'
+        })
+
+    } catch (error) {
+        console.error(error)
     }
-    if (!newProduct.quantity) {
-        newProduct.quantity = 1
-    } 
-    // else {
-    //     newProduct.quantity = cart.products[cart.products.length - 1].quantity + 1
-    // }
-    
-    cart.products.push(newProduct)
-    res.send({status: 'success'})
+
 })
+
+
 
 export default router

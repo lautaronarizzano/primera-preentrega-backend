@@ -1,0 +1,52 @@
+[
+	{
+		"title": "telefono",
+		"description": "descripcion",
+		"code": "abdsac123",
+		"price": 200,
+		"status": true,
+		"stock": 250,
+		"category": "tech",
+		"id": 2
+	},
+	{
+		"title": "telefono",
+		"description": "descripcion",
+		"code": "abdsacg123",
+		"price": 200,
+		"status": true,
+		"stock": 250,
+		"category": "tech",
+		"id": 3
+	},
+	{
+		"title": "telefono",
+		"description": "descripcion",
+		"code": "abdsacgasd123",
+		"price": 200,
+		"status": true,
+		"stock": 250,
+		"category": "tech",
+		"id": 4
+	},
+	{
+		"title": "telefono",
+		"description": "descripcion",
+		"code": "abdsacgasddas123",
+		"price": 200,
+		"status": true,
+		"stock": 250,
+		"category": "tech",
+		"id": 5
+	},
+	{
+		"title": "telefono",
+		"description": "descripcion",
+		"code": "ab123",
+		"price": 200,
+		"status": true,
+		"stock": 250,
+		"category": "tech",
+		"id": 6
+	}
+]
