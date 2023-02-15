@@ -1,25 +1,26 @@
 import {
     Router
 } from 'express'
-import {
-    productsManager
-} from '../utils.js'
 import fs from 'fs'
 
 
 
 const router = Router()
 
-const products = await productsManager.getProducts()
+
+const data = await fs.promises.readFile('./src/files/Products.json', 'utf-8')
+    const products = JSON.parse(data)
 
 router.get('/', async (req, res) => {
+        
     const limit = Number(req.query.limit)
 
     if (!limit){
-        res.send({products})
+        // res.send({products})
+        res.render('home', {products})
     }else {
         const limitedProducts = products.slice(0, limit);
-        res.send({limitedProducts});
+        res.render('home', {limitedProducts});
     }
 })
 
@@ -33,7 +34,7 @@ router.get('/:pid', (req, res) => {
         message: "Product not found"
     })
 
-    res.send(product)
+    res.render('home', {product})
 })
 
 router.post('/', async (req, res) => {
@@ -136,6 +137,8 @@ router.delete('/:pid', async (req, res) => {
         console.error(error)
     }
 })
+
+
 
 
 export default router

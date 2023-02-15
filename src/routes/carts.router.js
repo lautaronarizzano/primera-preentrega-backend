@@ -1,17 +1,14 @@
 import {
     Router
 } from 'express'
-import {
-    CartsManager
-} from '../utils.js'
 import fs from 'fs'
 
 
 const router = Router()
 
 //traigo productos
-const carts = await CartsManager.getCarts()
-
+const data = await fs.promises.readFile('./src/files/Carts.json', 'utf-8')
+const carts = JSON.parse(data)
 //metodo para agregar productos
 router.post('/', async (req, res) => {
     try {

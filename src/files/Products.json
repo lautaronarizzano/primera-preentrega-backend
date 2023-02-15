@@ -1,8 +1,8 @@
 [
 	{
-		"title": "telefono",
+		"title": "televisor",
 		"description": "descripcion",
-		"code": "abdsac123",
+		"code": "abc3",
 		"price": 200,
 		"status": true,
 		"stock": 250,
@@ -10,9 +10,9 @@
 		"id": 2
 	},
 	{
-		"title": "telefono",
+		"title": "pava",
 		"description": "descripcion",
-		"code": "abdsacg123",
+		"code": "ab3",
 		"price": 200,
 		"status": true,
 		"stock": 250,
@@ -20,33 +20,13 @@
 		"id": 3
 	},
 	{
-		"title": "telefono",
+		"title": "pava",
 		"description": "descripcion",
-		"code": "abdsacgasd123",
+		"code": "ab3312",
 		"price": 200,
 		"status": true,
 		"stock": 250,
 		"category": "tech",
 		"id": 4
-	},
-	{
-		"title": "telefono",
-		"description": "descripcion",
-		"code": "abdsacgasddas123",
-		"price": 200,
-		"status": true,
-		"stock": 250,
-		"category": "tech",
-		"id": 5
-	},
-	{
-		"title": "telefono",
-		"description": "descripcion",
-		"code": "ab123",
-		"price": 200,
-		"status": true,
-		"stock": 250,
-		"category": "tech",
-		"id": 6
 	}
 ]
